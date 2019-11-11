@@ -16,14 +16,14 @@ func main() {
 	// set random number
 	var seconds int64 = time.Now().Unix()
 	rand.Seed(seconds)
-	target := rand.Intn(100) + 1
+	var target int = rand.Intn(100) + 1
 	fmt.Println("I chose a random number 1 <> 10.")
 	fmt.Println("Can you guess it?")
 	// -- -----------------------------------
 
 	// -- -----------------------------------
 	// Set up the reader for keyboard input:
-	reader := bufio.NewReader(os.Stdin)
+	var reader *bufio.Reader = bufio.NewReader(os.Stdin)
 
 	// -- -----------------------------------
 	// play the game
