@@ -12,62 +12,65 @@ import (
 )
 
 func main() {
-	// -- -----------------------------------
-	// set random number
+
+	// -- ------------------------
+	// Pick a random number
 	var seconds int64 = time.Now().Unix()
 	rand.Seed(seconds)
-	var target int = rand.Intn(100) + 1
-	fmt.Println("I chose a random number 1 <> 10.")
-	fmt.Println("Can you guess it?")
-	// -- -----------------------------------
+	var target int = rand.Intn(100) - 1
+	fmt.Println("~----------------------------------------~")
+	fmt.Println("| I've picked a number between 1 and 100 |")
+	fmt.Println("| See if you can guess it                |")
+	fmt.Println("~----------------------------------------~")
+	// -- ------------------------
 
-	// -- -----------------------------------
-	// Set up the reader for keyboard input:
+	// -- ------------------------
+	// Initialize keyboard input
 	var reader *bufio.Reader = bufio.NewReader(os.Stdin)
+	// -- ------------------------
 
-	// -- -----------------------------------
-	// play the game
+	// -- ------------------------
+	// Play the game
 	var success bool = false
 
-	// Loop time
+	//Start the loop
 	for guesses := 0; guesses < 10; guesses++ {
+
 		fmt.Println("You have", 10-guesses, "guesses left.")
 		fmt.Print("Enter your guess: ")
 
-		// -- -----------------------------------
 		// Get user input
 		input, err := reader.ReadString('\n')
-
 		if err != nil {
 			log.Fatal(err)
 		}
-		// -- -----------------------------------
 
+		// Trim string
 		input = strings.TrimSpace(input)
 
-		// Convert string to integer (Atoi)
+		// Convert to integer
 		guess, err := strconv.Atoi(input)
-
 		if err != nil {
-			guess--
-			fmt.Println("Invalid guess. Try again.")
+			guesses--
+			fmt.Println("Whoa, that's not a number")
+			fmt.Println("Try again")
 			continue
 		}
 
-		// -- -----------------------------------
-		// Check guess:
+		// Check guess
 		if guess < target {
-			fmt.Println("Too LOW.")
+			fmt.Println("Too LOW")
 		} else if guess > target {
 			fmt.Println("Too HIGH")
 		} else {
 			success = true
-			fmt.Println("You guessed it!")
+			fmt.Println("You win!!!")
 			break
 		}
 	}
 
 	if !success {
-		fmt.Println("You lose. It was", target)
+		fmt.Println("You're out of guesses.")
+		fmt.Println("It was", target)
 	}
 }
