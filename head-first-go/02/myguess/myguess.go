@@ -12,31 +12,24 @@ import (
 )
 
 func main() {
-
-	// -- ------------------------
-	// Pick a random number
+	// -- -----------------------------
+	// pick a random number
 	var seconds int64 = time.Now().Unix()
 	rand.Seed(seconds)
-	var target int = rand.Intn(100) - 1
-	fmt.Println("~----------------------------------------~")
-	fmt.Println("| I've picked a number between 1 and 100 |")
-	fmt.Println("| See if you can guess it                |")
-	fmt.Println("~----------------------------------------~")
-	// -- ------------------------
+	var target int = rand.Intn(100) + 1
+	fmt.Println("I've chosen a number between 1 and 100")
+	fmt.Println("Can you guess what it is?")
 
-	// -- ------------------------
-	// Initialize keyboard input
+	// initialize keyboard input
 	var reader *bufio.Reader = bufio.NewReader(os.Stdin)
-	// -- ------------------------
 
-	// -- ------------------------
 	// Play the game
 	var success bool = false
 
-	//Start the loop
+	// start the loop
 	for guesses := 0; guesses < 10; guesses++ {
-
-		fmt.Println("You have", 10-guesses, "guesses left.")
+		fmt.Println("-----")
+		fmt.Println("You have", 10-guesses, "left.")
 		fmt.Print("Enter your guess: ")
 
 		// Get user input
@@ -45,32 +38,32 @@ func main() {
 			log.Fatal(err)
 		}
 
-		// Trim string
+		// trim string
 		input = strings.TrimSpace(input)
 
-		// Convert to integer
+		// convert to int
 		guess, err := strconv.Atoi(input)
 		if err != nil {
 			guesses--
 			fmt.Println("Whoa, that's not a number")
-			fmt.Println("Try again")
+			fmt.Println("Go ahead and try again")
 			continue
 		}
 
-		// Check guess
+		// Check answer
 		if guess < target {
 			fmt.Println("Too LOW")
 		} else if guess > target {
 			fmt.Println("Too HIGH")
 		} else {
 			success = true
-			fmt.Println("You win!!!")
+			fmt.Println("You got it!!!")
 			break
 		}
 	}
 
 	if !success {
-		fmt.Println("You're out of guesses.")
+		fmt.Println("You lose")
 		fmt.Println("It was", target)
 	}
 }
