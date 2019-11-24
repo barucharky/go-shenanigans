@@ -6,10 +6,10 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/Ylazerson/go-shenanigans/head-first-go/04/greeting"
-	"github.com/Ylazerson/go-shenanigans/head-first-go/04/greeting/dansk"
-	"github.com/Ylazerson/go-shenanigans/head-first-go/04/greeting/deutsch"
-	"github.com/Ylazerson/go-shenanigans/head-first-go/04/keyboard"
+	"github.com/barucharky/go-shenanigans/head-first-go/04/greeting"
+	"github.com/barucharky/go-shenanigans/head-first-go/04/greeting/dansk"
+	"github.com/barucharky/go-shenanigans/head-first-go/04/greeting/deutsch"
+	"github.com/barucharky/go-shenanigans/head-first-go/04/keyboard"
 )
 
 func main() {
