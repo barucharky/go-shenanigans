@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"log"
 	"math/rand"
 	"os"
 	"strconv"
@@ -12,65 +13,75 @@ import (
 
 func main() {
 
-	// -- --------------------------------
-	// Pick a random number
+	// -- -------------------------
+	// Get a random number
 	var seconds int64 = time.Now().Unix()
 	rand.Seed(seconds)
 	var target int = rand.Intn(100) + 1
 
-	fmt.Println("I'm thinking of a number between 1 and 100")
-	fmt.Println("Try to guess what it is.")
+	fmt.Println("I've picked a number between 1 and 100")
+	fmt.Println("Can you guess it?")
+	// -- -------------------------
 
-	// -- --------------------------------
+	// -- -------------------------
 	// Initialize input from keyboard
 	var reader *bufio.Reader = bufio.NewReader(os.Stdin)
+	// -- -------------------------
 
-	// -- --------------------------------
-	// Play the game
+	// -- -------------------------
+	// Start game
+
+	// At the start success is false
 	var success bool = false
 
 	// Start the loop
 	for guesses := 0; guesses < 10; guesses++ {
-
-		if guesses == 0 {
-			fmt.Println("Begin.")
-			fmt.Println("-----")
-		}
-
 		fmt.Println("You have", 10-guesses, "guesses left.")
 		fmt.Print("Enter your guesses: ")
 
-		// get user input
+		// Get input from user
 		input, err := reader.ReadString('\n')
+		if err != nil {
+			log.Fatal(err)
+		}
 
-		// trim white spaces
+		// Trim whitespaces
 		input = strings.TrimSpace(input)
 
-		// Attempt conversion to int
+		// Attempt conversion to integer
 		guess, err := strconv.Atoi(input)
 
-		// If it fails, give another guess
+		// If it can't be converted, give user another turn
 		if err != nil {
 			guesses--
-			fmt.Printf("%s is not a number.\n", input)
-			fmt.Println("Guess again")
+			fmt.Println("-----")
+			fmt.Printf("Oops. %v is not a number.\n", input)
+			fmt.Println("Try again.")
+			fmt.Println("-----")
 			continue
 		}
 
-		// Check guess
+		// Check answer
 		if guess < target {
-			fmt.Println("Too LOW")
+			fmt.Println("~---------~")
+			fmt.Println("| Too LOW |")
+			fmt.Println("~---------~")
 		} else if guess > target {
-			fmt.Println("Too HIGH")
+			fmt.Println("~----------~")
+			fmt.Println("| Too HIGH |")
+			fmt.Println("~----------~")
 		} else {
 			success = true
-			fmt.Println("You got it!")
+			fmt.Println("~============~")
+			fmt.Println("| YOU WON!!! |")
+			fmt.Println("~============~")
 			break
 		}
+
 	}
 
 	if !success {
-		fmt.Println("You lose.")
-		fmt.Printf("%d was the right answer.\n", target)
+		fmt.Println("Tough break.")
+		fmt.Println("It was", target)
 	}
 }
