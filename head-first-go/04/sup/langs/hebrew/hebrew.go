@@ -1,11 +1,15 @@
 package hebrew
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/barucharky/go-shenanigans/stringutil"
+)
 
 func Shalom() {
-	fmt.Println("שלום.")
+	fmt.Println(stringutil.Reverse("שלום."))
 }
 
 func Mah() {
-	fmt.Println("מה שלומך?")
+	fmt.Println(stringutil.Reverse("מה שלומך?"))
 }
