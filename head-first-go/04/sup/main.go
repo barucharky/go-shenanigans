@@ -28,6 +28,11 @@ func main() {
 	}
 
 	// Show appropriate greeting
+	showGreeting(choice)
+
+}
+
+func showGreeting(choice int) {
 	if choice == 1 {
 		english.Hello()
 		english.How()
