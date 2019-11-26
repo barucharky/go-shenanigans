@@ -1,4 +1,3 @@
-// Package uinput is for reading and converting to a float
 package uinput
 
 import (
@@ -8,23 +7,24 @@ import (
 	"strings"
 )
 
-// GetFloat reads a float from the user
-// It returns the number or an error
-func GetFloat() (float64, error) {
+func GetFloat() (int, error) {
 
-	// Initialize
+	// Get input from user
 	var reader *bufio.Reader = bufio.NewReader(os.Stdin)
 
 	var input string
 	var err error
-
-	// Get input
 	input, err = reader.ReadString('\n')
+	if err != nil {
+		return 0, err
+	}
 
+	// Trim spaces
 	input = strings.TrimSpace(input)
 
-	// Convert to float
-	number, err := strconv.ParseFloat(input, 64)
+	// Convert to int
+	var number int
+	number, err = strconv.Atoi(input)
 	if err != nil {
 		return 0, err
 	}

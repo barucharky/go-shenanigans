@@ -3,7 +3,7 @@ package french
 import "fmt"
 
 func Bonjour() {
-	fmt.Println("Bonjour.")
+	fmt.Println("Bonjour")
 }
 
 func Comm() {

@@ -7,5 +7,5 @@ func Hola() {
 }
 
 func Como() {
-	fmt.Println("¿Cómo está?")
+	fmt.Println("¿Cómo estás?")
 }
