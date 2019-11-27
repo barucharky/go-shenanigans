@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"log"
 
 	"github.com/barucharky/go-shenanigans/head-first-go/04/sup/langs/english"
 	"github.com/barucharky/go-shenanigans/head-first-go/04/sup/langs/french"
@@ -13,39 +12,44 @@ import (
 
 func main() {
 
-	fmt.Println("Choose a language for your greeting.")
+	// Show options
+	fmt.Println("Choose a language:")
 	fmt.Println("1 : English")
 	fmt.Println("2 : French")
 	fmt.Println("3 : Hebrew")
 	fmt.Println("4 : Spanish")
 
-	var choice int
+	// Get user's selection
+
+	var selection int
 	var err error
 
-	choice, err = uinput.GetFloat()
-	if err != nil {
-		log.Fatal(err)
+	for true {
+		selection, err = uinput.GetInt()
+		if err == nil {
+			break
+		}
+
+		println(err.Error())
 	}
 
-	// Show appropriate greeting
-	showGreeting(choice)
-
+	greeting(selection)
 }
 
-func showGreeting(choice int) {
-	if choice == 1 {
+func greeting(number int) {
+	if number == 1 {
 		english.Hello()
 		english.How()
-	} else if choice == 2 {
+	} else if number == 2 {
 		french.Bonjour()
 		french.Comm()
-	} else if choice == 3 {
+	} else if number == 3 {
 		hebrew.Shalom()
 		hebrew.Mah()
-	} else if choice == 4 {
+	} else if number == 4 {
 		spanish.Hola()
 		spanish.Como()
 	} else {
-		fmt.Println("Hmm...I don't know that one.")
+		fmt.Println("Can't say I know that one.")
 	}
 }
