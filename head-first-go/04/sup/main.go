@@ -13,14 +13,9 @@ import (
 func main() {
 
 	// Show options
-	fmt.Println("Choose a language:")
-	fmt.Println("1 : English")
-	fmt.Println("2 : French")
-	fmt.Println("3 : Hebrew")
-	fmt.Println("4 : Spanish")
+	menu()
 
-	// Get user's selection
-
+	// Get integer from user
 	var selection int
 	var err error
 
@@ -30,26 +25,37 @@ func main() {
 			break
 		}
 
-		println(err.Error())
+		fmt.Println("-----")
+		fmt.Println(err)
+		fmt.Println("-----")
+		menu()
 	}
-
+	// Show greeting
 	greeting(selection)
 }
 
-func greeting(number int) {
-	if number == 1 {
+func menu() {
+	fmt.Println("Choose a language:")
+	fmt.Println("1 : English")
+	fmt.Println("2 : French")
+	fmt.Println("3 : Hebrew")
+	fmt.Println("4 : Spanish")
+}
+
+func greeting(selection int) {
+	if selection == 1 {
 		english.Hello()
 		english.How()
-	} else if number == 2 {
+	} else if selection == 2 {
 		french.Bonjour()
 		french.Comm()
-	} else if number == 3 {
+	} else if selection == 3 {
 		hebrew.Shalom()
 		hebrew.Mah()
-	} else if number == 4 {
+	} else if selection == 4 {
 		spanish.Hola()
 		spanish.Como()
 	} else {
-		fmt.Println("Can't say I know that one.")
+		fmt.Println("Sorry, I don't know that one")
 	}
 }
