@@ -12,10 +12,9 @@ import (
 
 func main() {
 
-	// Show options
+	// Show menu
 	menu()
 
-	// Get integer from user
 	var selection int
 	var err error
 
@@ -28,14 +27,15 @@ func main() {
 		fmt.Println("-----")
 		fmt.Println(err)
 		fmt.Println("-----")
+
 		menu()
 	}
-	// Show greeting
+
 	greeting(selection)
 }
 
 func menu() {
-	fmt.Println("Choose a language:")
+	fmt.Println("Choose a language")
 	fmt.Println("1 : English")
 	fmt.Println("2 : French")
 	fmt.Println("3 : Hebrew")
@@ -56,6 +56,6 @@ func greeting(selection int) {
 		spanish.Hola()
 		spanish.Como()
 	} else {
-		fmt.Println("Sorry, I don't know that one")
+		fmt.Println("I don't know that one")
 	}
 }
