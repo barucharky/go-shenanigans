@@ -15,10 +15,13 @@ func main() {
 	// Show menu
 	menu()
 
+	// Start loop
+	// Call getinput input until proper input is received
 	var selection int
 	var err error
 
 	for true {
+
 		selection, err = uinput.GetInt()
 		if err == nil {
 			break
@@ -29,12 +32,16 @@ func main() {
 		fmt.Println("-----")
 
 		menu()
+
 	}
 
+	// Show proper greeting using the using greeting function
 	greeting(selection)
+
 }
 
 func menu() {
+
 	fmt.Println("Choose a language")
 	fmt.Println("1 : English")
 	fmt.Println("2 : French")
@@ -43,6 +50,8 @@ func menu() {
 }
 
 func greeting(selection int) {
+
+	// Print the proper selection
 	if selection == 1 {
 		english.Hello()
 		english.How()

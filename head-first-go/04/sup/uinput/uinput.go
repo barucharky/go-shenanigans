@@ -9,19 +9,22 @@ import (
 	"strings"
 )
 
+// Declare errors
 var errFloat error = errors.New("that was never an option")
-var errString error = errors.New("seems you don't know letters from numbers")
+var errString error = errors.New("seems you don't know your letters from your numbers")
 
-// GetInt gets an int from the user
+// GetInt gets input from user and converts to int
 func GetInt() (int, error) {
 
-	// Get input from user
-	var doodad string = GetInput()
+	// Call GetInput
+	var doodad string
 
+	doodad = GetInput()
+
+	// Call ConvertInt
 	var theInt int
 	var err error
 
-	// Convert to integer
 	theInt, err = ConvertInt(doodad)
 	if err != nil {
 		return 0, err
@@ -30,16 +33,18 @@ func GetInt() (int, error) {
 	return theInt, nil
 }
 
-// GetFloat gets a float from the user
+// GetFloat gets input from user and converts to float
 func GetFloat() (float64, error) {
 
-	// Get input from user
-	var doodad string = GetInput()
+	// Call GetInput
+	var doodad string
 
+	doodad = GetInput()
+
+	// Call ConvertFloat
 	var theFloat float64
 	var err error
 
-	// Convert to float
 	theFloat, err = ConvertFloat(doodad)
 	if err != nil {
 		return 0, err
@@ -48,33 +53,32 @@ func GetFloat() (float64, error) {
 	return theFloat, nil
 }
 
-// GetInput gets input from the user
+// GetInput gets input from user and trims it
 func GetInput() string {
 
-	// Declare variables
-	var input string
-	var err error
+	// Initialize input from keyboard
 	var reader *bufio.Reader = bufio.NewReader(os.Stdin)
 
-	// Get input
+	var input string
+	var err error
+
 	input, err = reader.ReadString('\n')
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	// Trim whitespaces
 	input = strings.TrimSpace(input)
+
 	return input
 }
 
-// ConvertInt converts to int
+// ConvertInt converts a sting to an int
 func ConvertInt(s string) (int, error) {
 
-	// Declare variables
+	// Attempt conversion
 	var number int
 	var err error
 
-	// Attempt conversion to int
 	number, err = strconv.Atoi(s)
 	if err != nil {
 		_, err = strconv.ParseFloat(s, 64)
@@ -88,14 +92,13 @@ func ConvertInt(s string) (int, error) {
 	return number, nil
 }
 
-// ConvertFloat converts to float
+// ConvertFloat converts a sting to a float
 func ConvertFloat(s string) (float64, error) {
 
-	// Declare variables
+	// Attempt conversion
 	var number float64
 	var err error
 
-	// Attempt conversion to float
 	number, err = strconv.ParseFloat(s, 64)
 	if err != nil {
 		return 0, errString
