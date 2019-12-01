@@ -3,26 +3,27 @@ package main
 import (
 	"fmt"
 
+	"github.com/barucharky/go-shenanigans/head-first-go/04/sup/uinput"
+
 	"github.com/barucharky/go-shenanigans/head-first-go/04/sup/langs/english"
 	"github.com/barucharky/go-shenanigans/head-first-go/04/sup/langs/french"
 	"github.com/barucharky/go-shenanigans/head-first-go/04/sup/langs/hebrew"
 	"github.com/barucharky/go-shenanigans/head-first-go/04/sup/langs/spanish"
-	"github.com/barucharky/go-shenanigans/head-first-go/04/sup/uinput"
 )
 
 func main() {
 
-	// Show menu
+	// Show the menu
 	menu()
 
-	// Start loop
-	// Call getinput input until proper input is received
+	// Get integer loop
 	var selection int
 	var err error
 
 	for true {
 
 		selection, err = uinput.GetInt()
+
 		if err == nil {
 			break
 		}
@@ -30,19 +31,17 @@ func main() {
 		fmt.Println("-----")
 		fmt.Println(err)
 		fmt.Println("-----")
-
 		menu()
 
 	}
 
-	// Show proper greeting using the using greeting function
+	// Call greeting package
 	greeting(selection)
 
 }
 
 func menu() {
-
-	fmt.Println("Choose a language")
+	fmt.Println("Choose your prefered language:")
 	fmt.Println("1 : English")
 	fmt.Println("2 : French")
 	fmt.Println("3 : Hebrew")
@@ -51,7 +50,6 @@ func menu() {
 
 func greeting(selection int) {
 
-	// Print the proper selection
 	if selection == 1 {
 		english.Hello()
 		english.How()

@@ -8,20 +8,12 @@ import (
 	"strconv"
 )
 
-var errUsage error = errors.New("invalid argument. see usage")
-
-func avg(numbers ...float64) float64 {
-
-	var sum float64
-
-	sum = add(numbers...)
-
-	return sum / float64(len(numbers))
-}
+var errInvalid error = errors.New("invalid arguments. see usage")
 
 func add(numbers ...float64) float64 {
 
 	var sum float64
+
 	var number float64
 
 	for _, number = range numbers {
@@ -31,6 +23,13 @@ func add(numbers ...float64) float64 {
 	return sum
 }
 
+func avg(numbers ...float64) float64 {
+
+	var sum float64 = add(numbers...)
+
+	return sum / float64(len(numbers))
+}
+
 func main() {
 
 	var mathType string = os.Args[1]
@@ -38,6 +37,7 @@ func main() {
 	var numbers []float64
 
 	var argument string
+
 	for _, argument = range arguments {
 
 		var number float64
@@ -46,18 +46,19 @@ func main() {
 		number, err = strconv.ParseFloat(argument, 64)
 
 		if err != nil {
-			log.Fatal(errUsage)
+			log.Fatal(errInvalid)
 		}
 
 		numbers = append(numbers, number)
+
 	}
 
-	if mathType == "usage" {
-		usage()
-	} else if mathType == "add" {
+	if (mathType == "add") || (mathType == "sum") {
 		fmt.Printf("The sum of your numbers is %0.2f\n", add(numbers...))
 	} else if mathType == "avg" {
 		fmt.Printf("The average of your numbers is %0.2f\n", avg(numbers...))
+	} else {
+		log.Fatal(errInvalid)
 	}
 }
 

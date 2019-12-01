@@ -2,8 +2,8 @@ package main
 
 import (
 	"bufio"
-	"errors"
 	"fmt"
+	"log"
 	"math/rand"
 	"os"
 	"strconv"
@@ -13,74 +13,64 @@ import (
 
 func main() {
 
-	// Get a random number
-	var target int
-	target = pickNumber()
+	// Pick a random number
+	var seconds int64 = time.Now().Unix()
+	rand.Seed(seconds)
+	var target int = rand.Intn(100) + 1
+
+	// Initialize input from keyboard
+	var reader *bufio.Reader = bufio.NewReader(os.Stdin)
 
 	// Start game
 	var success bool = false
+	var guesses int64
 
-	for guesses := 0; guesses < 10; guesses++ {
+	// Start the loop
+	for guesses = 0; guesses < 10; guesses++ {
+
 		fmt.Println("You have", 10-guesses, "left.")
 		fmt.Print("Enter your guess: ")
 
 		// Get input from user
-		var guess int
+		var input string
 		var err error
-		guess, err = getGuess()
+
+		input, err = reader.ReadString('\n')
+
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		input = strings.TrimSpace(input)
+
+		// Convert input to int
+		var guess int
+
+		guess, err = strconv.Atoi(input)
+
 		if err != nil {
 			guesses--
-			printMessage("Must be an integer.")
+			printMessage("Invalid guess")
 			continue
 		}
 
 		// Check answer
-		var response string
-		response, success = checkGuess(guess, target)
-		printMessage(response)
-		if success {
+
+		if guess < target {
+			printMessage("Too LOW")
+		} else if guess > target {
+			printMessage("Too HIGH")
+		} else {
+			success = true
+			printMessage("YOU WINNNN!!!")
 			break
 		}
 	}
 
 	if !success {
-		printMessage("You lost.")
+		fmt.Println("You lose.")
 		fmt.Println("It was", target)
 	}
-}
-
-func pickNumber() int {
-	var seconds int64 = time.Now().Unix()
-	rand.Seed(seconds)
-	var number int = rand.Intn(100) + 1
-
-	fmt.Println("I've chosen a number between 1 and 100.")
-	fmt.Println("Can you guess what it is?")
-	fmt.Println("-----")
-	return number
-}
-
-func getGuess() (int, error) {
-
-	// Initialize input from keyboard
-	var reader *bufio.Reader = bufio.NewReader(os.Stdin)
-
-	// Get user input
-	var input string
-	var err error
-	input, err = reader.ReadString('\n')
-
-	// Trim whitespaces
-	input = strings.TrimSpace(input)
-
-	// Attempt conversion
-	var guess int
-	guess, err = strconv.Atoi(input)
-	if err != nil {
-		return 0, errors.New("no")
-	}
-
-	return guess, nil
 
 }
 
@@ -88,14 +78,4 @@ func printMessage(message string) {
 	fmt.Println("-----")
 	fmt.Println(message)
 	fmt.Println("-----")
-}
-
-func checkGuess(guess, target int) (string, bool) {
-	if guess < target {
-		return "Too LOW", false
-	} else if guess > target {
-		return "Too HIGH", false
-	}
-
-	return "You Win!", true
 }
