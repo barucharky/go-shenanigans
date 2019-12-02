@@ -24,8 +24,7 @@ func add(numbers ...float64) float64 {
 
 func avg(numbers ...float64) float64 {
 
-	var sum float64
-	sum = add(numbers...)
+	var sum float64 = add(numbers...)
 
 	return sum / float64(len(numbers))
 }
@@ -40,19 +39,15 @@ func main() {
 	}
 
 	var numbers []float64
-	var err error
 
-	numbers, err = convertArgs(arguments...)
-	if err != nil {
-		log.Fatal(errInvalid)
-	}
+	numbers = convertArgs(arguments...)
 
 	// Get results
 	getResults(mathType, numbers...)
 
 }
 
-func convertArgs(arguments ...string) ([]float64, error) {
+func convertArgs(arguments ...string) []float64 {
 
 	var numbers []float64
 	var argument string
@@ -63,14 +58,14 @@ func convertArgs(arguments ...string) ([]float64, error) {
 
 		number, err = strconv.ParseFloat(argument, 64)
 		if err != nil {
-			return nil, err
+			log.Fatal(errInvalid)
 		}
 
 		numbers = append(numbers, number)
 
 	}
 
-	return numbers, nil
+	return numbers
 }
 
 func getResults(mathType string, numbers ...float64) {
