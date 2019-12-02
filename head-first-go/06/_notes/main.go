@@ -34,4 +34,69 @@ func main() {
 		fmt.Println("index is", index, "- value is", value)
 	}
 
+	// -- -------------------------
+	fmt.Println("---------------")
+	// -- -------------------------
+
+	var office []string
+
+	// Not needed if using append():
+	// office = make([]string, 3)
+
+	office = append(office, "computer")
+	office = append(office, "desk")
+	office = append(office, "pens")
+
+	for index, value := range office {
+		fmt.Println("index is", index, "- value is", value)
+	}
+
+	// With just println
+	fmt.Println("Println:")
+	fmt.Println(office)
+
+	// -- -------------------------
+	fmt.Println("---------------")
+	// -- -------------------------
+
+	fmt.Println("------------------------")
+	fmt.Println("Slice example 3:")
+	fmt.Println("Slice Literals")
+	fmt.Println("No need to use `make`")
+	fmt.Println("Use this 2% of the time")
+	fmt.Println("--                    --")
+
+	cities := []string{"b7", "jlm", "tlv", "tzfat", "elad"}
+
+	cities[1] = "yerushalayim"
+
+	for index, value := range cities {
+		fmt.Println("index is", index, "- value is", value)
+	}
+
+	// -- -------------------------
+	// General appropriate usage of slice
+	fmt.Println("------------------------")
+
+	shoppingList := make([]string, 7)
+
+	fmt.Println("\n print 1:")
+	fmt.Println(shoppingList)
+
+	// -- -   -   -   -   -   -   -   -   -
+	shoppingList[2] = "apples"
+	shoppingList[4] = "bread"
+
+	fmt.Println("\n print 2:")
+	fmt.Println(shoppingList)
+
+	// -- -   -   -   -   -   -   -   -   -
+	fmt.Println("ALWAYS use same var name when appending!!!")
+	shoppingList = append(shoppingList, "milk", "tomatoes", "wine")
+
+	fmt.Println("\n print 3:")
+	fmt.Println(shoppingList)
+
+	// -- ---------------------------------
+
 }

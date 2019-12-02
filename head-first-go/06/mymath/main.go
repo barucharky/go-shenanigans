@@ -15,7 +15,6 @@ func add(numbers ...float64) float64 {
 	var sum float64
 
 	var number float64
-
 	for _, number = range numbers {
 		sum += number
 	}
@@ -25,7 +24,8 @@ func add(numbers ...float64) float64 {
 
 func avg(numbers ...float64) float64 {
 
-	var sum float64 = add(numbers...)
+	var sum float64
+	sum = add(numbers...)
 
 	return sum / float64(len(numbers))
 }
@@ -33,30 +33,54 @@ func avg(numbers ...float64) float64 {
 func main() {
 
 	var mathType string = os.Args[1]
-	var arguments []string = os.Args[2:]
-	var numbers []float64
+	var arguments = os.Args[2:]
 
+	if len(os.Args) < 2 {
+		log.Fatal(errInvalid)
+	}
+
+	var numbers []float64
+	var err error
+
+	numbers, err = convertArgs(arguments...)
+	if err != nil {
+		log.Fatal(errInvalid)
+	}
+
+	// Get results
+	getResults(mathType, numbers...)
+
+}
+
+func convertArgs(arguments ...string) ([]float64, error) {
+
+	var numbers []float64
 	var argument string
 
 	for _, argument = range arguments {
-
 		var number float64
 		var err error
 
 		number, err = strconv.ParseFloat(argument, 64)
-
 		if err != nil {
-			log.Fatal(errInvalid)
+			return nil, err
 		}
 
 		numbers = append(numbers, number)
 
 	}
 
-	if (mathType == "add") || (mathType == "sum") {
+	return numbers, nil
+}
+
+func getResults(mathType string, numbers ...float64) {
+
+	if mathType == "add" || mathType == "sum" {
 		fmt.Printf("The sum of your numbers is %0.2f\n", add(numbers...))
-	} else if mathType == "avg" {
+	} else if mathType == "avg" || mathType == "average" {
 		fmt.Printf("The average of your numbers is %0.2f\n", avg(numbers...))
+	} else if mathType == "usage" {
+		usage()
 	} else {
 		log.Fatal(errInvalid)
 	}
