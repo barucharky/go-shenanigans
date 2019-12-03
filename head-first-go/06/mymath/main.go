@@ -13,13 +13,14 @@ var errInvalid error = errors.New("invalid arguments. see usage")
 func add(numbers ...float64) float64 {
 
 	var sum float64
-
 	var number float64
+
 	for _, number = range numbers {
 		sum += number
 	}
 
 	return sum
+
 }
 
 func avg(numbers ...float64) float64 {
@@ -32,17 +33,16 @@ func avg(numbers ...float64) float64 {
 func main() {
 
 	var mathType string = os.Args[1]
-	var arguments = os.Args[2:]
+	var arguments []string = os.Args[2:]
 
 	if len(os.Args) < 2 {
 		log.Fatal(errInvalid)
 	}
 
-	var numbers []float64
+	// Convert arguments to float64
+	var numbers []float64 = convertArgs(arguments...)
 
-	numbers = convertArgs(arguments...)
-
-	// Get results
+	// Call getResults
 	getResults(mathType, numbers...)
 
 }
@@ -53,10 +53,12 @@ func convertArgs(arguments ...string) []float64 {
 	var argument string
 
 	for _, argument = range arguments {
+
 		var number float64
 		var err error
 
 		number, err = strconv.ParseFloat(argument, 64)
+
 		if err != nil {
 			log.Fatal(errInvalid)
 		}
@@ -66,6 +68,7 @@ func convertArgs(arguments ...string) []float64 {
 	}
 
 	return numbers
+
 }
 
 func getResults(mathType string, numbers ...float64) {
