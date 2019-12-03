@@ -3,20 +3,19 @@ package main
 import (
 	"fmt"
 
-	"github.com/barucharky/go-shenanigans/head-first-go/04/sup/uinput"
-
 	"github.com/barucharky/go-shenanigans/head-first-go/04/sup/langs/english"
 	"github.com/barucharky/go-shenanigans/head-first-go/04/sup/langs/french"
 	"github.com/barucharky/go-shenanigans/head-first-go/04/sup/langs/hebrew"
 	"github.com/barucharky/go-shenanigans/head-first-go/04/sup/langs/spanish"
+	"github.com/barucharky/go-shenanigans/head-first-go/04/sup/uinput"
 )
 
 func main() {
 
-	// Show the menu
+	// Choose a language
 	menu()
 
-	// Get integer loop
+	// run GetInt until successful
 	var selection int
 	var err error
 
@@ -34,7 +33,6 @@ func main() {
 		menu()
 
 	}
-
 	// Call greeting package
 	greeting(selection)
 

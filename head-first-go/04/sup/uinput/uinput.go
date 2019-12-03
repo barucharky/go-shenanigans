@@ -15,10 +15,12 @@ var errString error = errors.New("you don't know your numbers from your letters"
 // GetInt gets an integer from the user
 func GetInt() (int, error) {
 
-	// Call GetInput to get a string
-	var doodad string = GetInput()
+	// Call GetInput
+	var doodad string
 
-	// call ConvertInt to convert string to int
+	doodad = GetInput()
+
+	// Call ConvertInt
 	var theInt int
 	var err error
 
@@ -34,10 +36,12 @@ func GetInt() (int, error) {
 // GetFloat gets a float from the user
 func GetFloat() (float64, error) {
 
-	// Call GetInput to get a string
-	var doodad string = GetInput()
+	// Call GetFloat
+	var doodad string
 
-	// Call ConvertFloat to conver string to float
+	doodad = GetInput()
+
+	// Call ConvertFloat
 	var theFloat float64
 	var err error
 
@@ -50,10 +54,13 @@ func GetFloat() (float64, error) {
 	return theFloat, nil
 }
 
-// GetInput gets input from the user
+// GetInput gets input from the user, returns trimmed string
 func GetInput() string {
 
+	// Initialize input from keyboard
 	var reader *bufio.Reader = bufio.NewReader(os.Stdin)
+
+	// Get input
 	var input string
 	var err error
 
@@ -63,15 +70,16 @@ func GetInput() string {
 		log.Fatal(err)
 	}
 
+	// Trim string
 	input = strings.TrimSpace(input)
 
 	return input
-
 }
 
 // ConvertInt converts a string to an integer
 func ConvertInt(s string) (int, error) {
 
+	// Attempt conversion
 	var theInt int
 	var err error
 
@@ -94,6 +102,7 @@ func ConvertInt(s string) (int, error) {
 // ConvertFloat converts a string to a float
 func ConvertFloat(s string) (float64, error) {
 
+	// Attempt conversion
 	var theFloat float64
 	var err error
 
