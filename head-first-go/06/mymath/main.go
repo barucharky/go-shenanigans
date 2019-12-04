@@ -16,7 +16,9 @@ func add(numbers ...float64) float64 {
 	var number float64
 
 	for _, number = range numbers {
+
 		sum += number
+
 	}
 
 	return sum
@@ -32,25 +34,27 @@ func avg(numbers ...float64) float64 {
 
 func main() {
 
-	var mathType string = os.Args[1]
-	var arguments []string = os.Args[2:]
-
+	// Test number of arguments
 	if len(os.Args) < 2 {
 		log.Fatal(errInvalid)
 	}
 
-	// Convert arguments to float64
+	// Get type of math and list of arguments
+	var mathType string = os.Args[1]
+	var arguments []string = os.Args[2:]
+
+	// Convert arguments to float
 	var numbers []float64 = convertArgs(arguments...)
 
-	// Call getResults
+	// Get results
 	getResults(mathType, numbers...)
 
 }
 
 func convertArgs(arguments ...string) []float64 {
 
-	var numbers []float64
 	var argument string
+	var numbers []float64
 
 	for _, argument = range arguments {
 
@@ -82,6 +86,7 @@ func getResults(mathType string, numbers ...float64) {
 	} else {
 		log.Fatal(errInvalid)
 	}
+
 }
 
 func usage() {
