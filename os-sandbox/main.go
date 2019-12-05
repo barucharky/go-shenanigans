@@ -44,23 +44,62 @@ func main() {
 
 	// -- ---------------------------
 	// Create a directory
-
 	var startDir string = "/home/baruch/"
-	var newFile string = "gotemp"
+	var newDirName string = "stupid-dir/"
+
+	fmt.Println("-----")
+	fmt.Println("Creating directory in", startDir, "...")
 
 	err = os.Chdir(startDir)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	fmt.Println("-----")
-	fmt.Println("Creating directory in", startDir)
-
-	err = os.Mkdir(newFile, 0777)
+	err = os.Mkdir(newDirName, 0777)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	fmt.Println("Created", startDir+newFile)
+	var endDir string = startDir + newDirName
+	fmt.Println("Created", endDir)
+	// -- ---------------------------
 
+	fmt.Println("-----")
+	fmt.Println("Creating file in", endDir)
+
+	var fileName string = "pointless-file"
+	var newFile *os.File
+
+	newFile, err = os.Create(endDir + fileName)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Println("Created", fileName)
+	fmt.Println("newFile is", newFile)
+	// -- ---------------------------
+
+	fmt.Println("-----")
+	fmt.Println("Writing to file...")
+
+	var message string = "You are reading a pointless file.\n"
+
+	_, err = newFile.WriteString(message)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Println("Wrote a message in the file.")
+	// -- ---------------------------
+
+	fmt.Println("-----")
+	fmt.Println("Checking filesize")
+
+	var myInfo os.FileInfo
+
+	myInfo, err = os.Stat(endDir + fileName)
+
+	fmt.Println("File size is", myInfo.Size())
 }
