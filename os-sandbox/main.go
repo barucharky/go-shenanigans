@@ -46,6 +46,7 @@ func main() {
 	// Create a directory
 
 	var startDir string = "/home/baruch/"
+	var newFile string = "gotemp"
 
 	err = os.Chdir(startDir)
 	if err != nil {
@@ -55,9 +56,11 @@ func main() {
 	fmt.Println("-----")
 	fmt.Println("Creating directory in", startDir)
 
-	err = os.Mkdir("gotemp", 0777)
+	err = os.Mkdir(newFile, 0777)
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	fmt.Println("Created", startDir+newFile)
 
 }
