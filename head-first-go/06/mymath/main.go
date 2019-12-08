@@ -26,23 +26,22 @@ func add(numbers ...float64) float64 {
 func avg(numbers ...float64) float64 {
 
 	return add(numbers...) / float64(len(numbers))
+
 }
 
 func main() {
 
-	// Error if no numbers or type
 	if len(os.Args) < 2 {
 		log.Fatal(errInvalid)
 	}
 
-	// Get type of math and arguments
 	var mathType string = os.Args[1]
 	var arguments []string = os.Args[2:]
 
 	// Convert arguments to float
 	var numbers []float64 = convertArgs(arguments...)
 
-	// Get math results
+	// Print the results of the math
 	getResults(mathType, numbers...)
 
 }
