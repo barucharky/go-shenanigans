@@ -39,8 +39,8 @@ func main() {
 	var car1 vehicles.Car
 
 	car1.Make = "Toyota"
-	car1.Model = "Selica"
-	car1.Year = 2007
+	car1.Model = "celica"
+	car1.Year = 2004
 	car1.Doors = 2
 	car1.Engine = "V6"
 	car1.Mpg = 37.62
