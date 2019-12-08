@@ -66,7 +66,7 @@ func main() {
 	car2.Year = 2019
 	car2.Doors = 2
 	car2.Engine = "V8"
-	car2.Mpg = 41.38
+	car2.Mpg = 21.38
 	car2.PwrSteering = true
 
 	fmt.Println(car2)
