@@ -11,23 +11,43 @@ type Player interface {
 }
 
 // -- -------------------------------------
-func TryOut(player Player) {
+func tryOutTapePlayer(t gadget.TapePlayer) {
+	t.Play("Hashem is here!")
+	t.Stop()
+}
+
+// -- -------------------------------------
+func TryOutGadget(player Player) {
 
 	player.Play("Test Track")
-
 	player.Stop()
 
 	// -- ---------------------------------
+	// 99% if time you won't need this:
 	// type assertion:
 	recorder, ok := player.(gadget.TapeRecorder)
 
 	if ok {
 		recorder.Record()
 	}
+
 }
 
 // -- -------------------------------------
 func main() {
-	TryOut(gadget.TapeRecorder{})
-	TryOut(gadget.TapePlayer{})
+
+	// -- ---------------------------------
+	var tPlayer gadget.TapePlayer
+	tPlayer.Batteries = "Duracell"
+
+	tryOutTapePlayer(tPlayer)
+
+	// -- ---------------------------------
+	var tRecorder gadget.TapeRecorder
+	tRecorder.Microphones = 2
+
+	// -- ---------------------------------
+	TryOutGadget(tPlayer)
+	TryOutGadget(tRecorder)
+
 }
