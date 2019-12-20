@@ -2,7 +2,7 @@
 
 package main
 
-import "github.com/Ylazerson/go-shenanigans/head-first-go/11/11b/gadget"
+import "github.com/barucharky/go-shenanigans/head-first-go/11/11b/gadget"
 
 // -- -------------------------------------
 type Player interface {
