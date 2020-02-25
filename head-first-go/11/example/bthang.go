@@ -28,6 +28,4 @@ func main() {
 	tRecorder.Record()
 	// -- -----------------------------
 
-	// Try out both with interface
-
 }
