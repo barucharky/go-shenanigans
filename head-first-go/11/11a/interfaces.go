@@ -5,7 +5,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/Ylazerson/go-shenanigans/head-first-go/11/11a/mypkg"
+	"github.com/barucharky/go-shenanigans/head-first-go/11/11a/mypkg"
 )
 
 // -- ---------------------------------------
