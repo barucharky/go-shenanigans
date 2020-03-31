@@ -10,26 +10,24 @@ type myFunctionType = func(a string, b string) string
 // Write a function to implement the functions
 func wazzup(fn myFunctionType) {
 
-	var newStr string = fn("hello", "world")
+	var newString string = fn("hello", "world")
 
-	fmt.Println(newStr)
+	fmt.Println(newString)
 }
 
 // Here's an implementation to use later
 func implementation3(a string, b string) string {
-
 	return "ashemoooooorrgissBBOOOOOOORDddah!!!!"
 }
 
 func main() {
 
 	// Explicit implementation
-	var implementation1 myFunctionType = func(a string, b string) string {
+	fmt.Println("Explicit:")
 
+	var implementation1 myFunctionType = func(a string, b string) string {
 		return fmt.Sprintf("%s %s", a, b)
 	}
-
-	fmt.Println("Implementation 1:")
 
 	wazzup(implementation1)
 
@@ -37,11 +35,11 @@ func main() {
 
 	// -- ---------------------------
 	// Implicit
+	fmt.Println("Implicit:")
+
 	implementation2 := func(a string, b string) string {
 		return fmt.Sprintf("%s %s", b, a)
 	}
-
-	fmt.Println("Implementation 2:")
 
 	wazzup(implementation2)
 
@@ -49,7 +47,7 @@ func main() {
 
 	// -- ---------------------------
 	// More implicit
-	fmt.Println("Implementation 3:")
+	fmt.Println("More implicit:")
 
 	wazzup(implementation3)
 
@@ -61,7 +59,7 @@ func main() {
 
 	wazzup(
 		func(a string, b string) string {
-			return fmt.Sprintf("%s %s!!!!", a, b)
+			return fmt.Sprintf("%s %s!", a, b)
 		},
 	)
 
