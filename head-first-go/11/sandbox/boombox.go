@@ -40,7 +40,7 @@ func main() {
 // Get song name
 func getSongName() string {
 
-	fmt.Println("Enter song name:")
+	fmt.Print("Enter song name: ")
 
 	var reader *bufio.Reader = bufio.NewReader(os.Stdin)
 

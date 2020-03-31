@@ -10,13 +10,14 @@ type Player interface {
 	Stop()
 }
 
+// -- -------------------------------
 // Create tools for interface
+
 // Process logs, plays and stops
 func Process(plyr Player, song string) {
 	logPlayInfo(plyr)
 	plyr.Play(song)
 	plyr.Stop()
-
 }
 
 // logPlayInfo prints "logging to db"
