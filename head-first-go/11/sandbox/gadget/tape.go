@@ -1,10 +1,9 @@
-// B''H
-
 package gadget
 
 import "fmt"
 
-// Create TapePlayer struct and methods
+// Tape Player struct and methods
+
 type TapePlayer struct {
 	Batteries string
 	Radio     bool
@@ -12,23 +11,24 @@ type TapePlayer struct {
 }
 
 func (t TapePlayer) Play(song string) {
-	fmt.Print("Now playing:", song)
-	fmt.Println("On Tape Player")
+	fmt.Print("Now Playing: ", song)
+	fmt.Println("On a Tape Player")
 }
 
 func (t TapePlayer) Stop() {
 	fmt.Println("Stopped -- Tape Player")
 }
 
-// Create TapeRecorder struct and methods
+// Tape Recorder struct and methods
+
 type TapeRecorder struct {
 	Microphones int64
 	Song        string
 }
 
 func (t TapeRecorder) Play(song string) {
-	fmt.Print("Now playing:", song)
-	fmt.Println("On Tape Recorder")
+	fmt.Print("Now Playing: ", song)
+	fmt.Println("On a Tape Recorder")
 }
 
 func (t TapeRecorder) Stop() {

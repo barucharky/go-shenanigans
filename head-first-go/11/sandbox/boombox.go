@@ -1,5 +1,3 @@
-// B''H
-
 package main
 
 import (
@@ -13,41 +11,40 @@ import (
 )
 
 func main() {
-	// Create tapePlayer
+
+	// Make a TapePlayer
 	var tPlayer gadget.TapePlayer
 	tPlayer.Batteries = "Duracell"
-	tPlayer.Radio = true
-	tPlayer.Song = getSongName()
+	tPlayer.Radio = false
+	tPlayer.Song = getSong()
 
-	// Test it out
+	// Test the TapePlayer
 	player.Process(tPlayer, tPlayer.Song)
 
-	// -- ---------------
-	fmt.Println("-----")
-	// -- ---------------
+	// -- -------------------------------
+	fmt.Println("----------")
+	// -- -------------------------------
 
-	// Create recorder
+	// Make a TapeRecorder
 	var tRecorder gadget.TapeRecorder
 	tRecorder.Microphones = 2
-	tRecorder.Song = getSongName()
+	tRecorder.Song = getSong()
 
-	// Test it out
+	// Test the TapeRecorder
 	player.Process(tRecorder, tRecorder.Song)
 	tRecorder.Record()
-
 }
 
-// Get song name
-func getSongName() string {
+func getSong() string {
 
-	fmt.Print("Enter song name: ")
+	fmt.Println("Enter song name:")
 
 	var reader *bufio.Reader = bufio.NewReader(os.Stdin)
-
 	var input string
 	var err error
 
 	input, err = reader.ReadString('\n')
+
 	if err != nil {
 		log.Fatal(err)
 	}

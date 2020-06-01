@@ -1,31 +1,56 @@
+// B''H
+
 package main
 
 import (
+	"bufio"
 	"fmt"
+	"log"
+	"os"
 
-	"github.com/barucharky/go-shenanigans/head-first-go/11/sandbox/gadget"
-	"github.com/barucharky/go-shenanigans/head-first-go/11/sandbox/player"
+	"github.com/barucharky/go-shenanigans/head-first-go/11/example/gadget"
+	"github.com/barucharky/go-shenanigans/head-first-go/11/example/player"
 )
 
 func main() {
-
-	// make a tapePlayer with batteries
+	// Create tapePlayer
 	var tPlayer gadget.TapePlayer
 	tPlayer.Batteries = "Duracell"
+	tPlayer.Radio = true
+	tPlayer.Song = getSongName()
 
-	// try out the tapePlayer
-	player.Process(tPlayer)
+	// Test it out
+	player.Process(tPlayer, tPlayer.Song)
 
-	// -- -----------------------------
+	// -- ---------------
 	fmt.Println("-----")
-	// -- -----------------------------
+	// -- ---------------
 
-	// Make a tapeRecorder with 2 mic's
+	// Create recorder
 	var tRecorder gadget.TapeRecorder
 	tRecorder.Microphones = 2
+	tRecorder.Song = getSongName()
 
-	player.Process(tRecorder)
+	// Test it out
+	player.Process(tRecorder, tRecorder.Song)
 	tRecorder.Record()
-	// -- -----------------------------
 
+}
+
+// Get song name
+func getSongName() string {
+
+	fmt.Print("Enter song name: ")
+
+	var reader *bufio.Reader = bufio.NewReader(os.Stdin)
+
+	var input string
+	var err error
+
+	input, err = reader.ReadString('\n')
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return input
 }
