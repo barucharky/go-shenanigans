@@ -4,62 +4,66 @@ package main
 
 import "fmt"
 
+// -- -----------------------------------
 // Declare the function type's signature
-type myFunctionType = func(a string, b string) string
+type myFunctionType = func(a, b string) string
 
+// -- -----------------------------------
 // Write a function to implement the functions
-func wazzup(fn myFunctionType) {
+func wazzap(fn myFunctionType) {
+	newStr := fn("hello", "world")
 
-	var newString string = fn("hello", "world")
-
-	fmt.Println(newString)
+	fmt.Println(newStr)
 }
 
+// -- -----------------------------------
 // Here's an implementation to use later
-func implementation3(a string, b string) string {
-	return "ashemoooooorrgissBBOOOOOOORDddah!!!!"
+func implementation3(a, b string) string {
+	return "a-shemooorgisBOOOOOOrda!!!"
 }
 
+// -- -----------------------------------
 func main() {
 
+	// -- -------------------------------
 	// Explicit implementation
 	fmt.Println("Explicit:")
 
-	var implementation1 myFunctionType = func(a string, b string) string {
+	var implementation1 myFunctionType = func(a, b string) string {
 		return fmt.Sprintf("%s %s", a, b)
 	}
 
-	wazzup(implementation1)
+	wazzap(implementation1)
 
 	fmt.Println()
 
-	// -- ---------------------------
+	// -- -------------------------------
 	// Implicit
 	fmt.Println("Implicit:")
 
-	implementation2 := func(a string, b string) string {
+	implementation2 := func(a, b string) string {
 		return fmt.Sprintf("%s %s", b, a)
 	}
 
-	wazzup(implementation2)
+	wazzap(implementation2)
 
 	fmt.Println()
 
-	// -- ---------------------------
+	// -- -------------------------------
 	// More implicit
-	fmt.Println("More implicit:")
+	fmt.Println("More implicit")
 
-	wazzup(implementation3)
+	wazzap(implementation3)
 
 	fmt.Println()
 
-	// -- ---------------------------
+	// -- -------------------------------
 	// Anonymous
-	fmt.Println("Anonymous:")
+	fmt.Println("You can even be anonymous:")
 
-	wazzup(
+	wazzap(
 		func(a string, b string) string {
-			return fmt.Sprintf("%s %s!", a, b)
+			return fmt.Sprintf("%s %s!!!", a, b)
 		},
 	)
 

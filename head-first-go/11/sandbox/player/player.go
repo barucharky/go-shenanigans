@@ -3,13 +3,13 @@ package player
 import "fmt"
 
 type Player interface {
-	Play(string)
+	Play()
 	Stop()
 }
 
-func Process(plyr Player, song string) {
+func Process(plyr Player) {
 	logPlayerInfo(plyr)
-	plyr.Play(song)
+	plyr.Play()
 	plyr.Stop()
 }
 

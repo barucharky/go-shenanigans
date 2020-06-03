@@ -19,7 +19,7 @@ func main() {
 	tPlayer.Song = getSong()
 
 	// Test the TapePlayer
-	player.Process(tPlayer, tPlayer.Song)
+	player.Process(tPlayer)
 
 	// -- -------------------------------
 	fmt.Println("----------")
@@ -31,7 +31,7 @@ func main() {
 	tRecorder.Song = getSong()
 
 	// Test the TapeRecorder
-	player.Process(tRecorder, tRecorder.Song)
+	player.Process(tRecorder)
 	tRecorder.Record()
 }
 

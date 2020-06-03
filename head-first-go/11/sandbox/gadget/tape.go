@@ -10,8 +10,8 @@ type TapePlayer struct {
 	Song      string
 }
 
-func (t TapePlayer) Play(song string) {
-	fmt.Print("Now Playing: ", song)
+func (t TapePlayer) Play() {
+	fmt.Print("Now Playing: ", t.Song)
 	fmt.Println("On a Tape Player")
 }
 
@@ -26,8 +26,8 @@ type TapeRecorder struct {
 	Song        string
 }
 
-func (t TapeRecorder) Play(song string) {
-	fmt.Print("Now Playing: ", song)
+func (t TapeRecorder) Play() {
+	fmt.Print("Now Playing: ", t.Song)
 	fmt.Println("On a Tape Recorder")
 }
 

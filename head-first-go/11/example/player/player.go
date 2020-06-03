@@ -6,7 +6,7 @@ import "fmt"
 
 // Player is the interface for tapes
 type Player interface {
-	Play(string)
+	Play()
 	Stop()
 }
 
@@ -14,9 +14,9 @@ type Player interface {
 // Create tools for interface
 
 // Process logs, plays and stops
-func Process(plyr Player, song string) {
+func Process(plyr Player) {
 	logPlayInfo(plyr)
-	plyr.Play(song)
+	plyr.Play()
 	plyr.Stop()
 }
 
