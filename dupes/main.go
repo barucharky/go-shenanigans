@@ -1,11 +1,9 @@
 package main
 
 import (
-	"flag"
 	"fmt"
+	"os"
 )
-
-var n = flag.Bool("n", false, "display non-duplicates")
 
 func removeDupes(s []string) []string {
 	// -- -------------------------------
@@ -24,44 +22,30 @@ func removeDupes(s []string) []string {
 
 	// -- -------------------------------
 	// List duplicates
-	for item, occurance := range m {
+	for item, dupe := range m {
 
-		if occurance > 1 {
-			fmt.Println(item, "is duplicated", occurance, "times.")
+		if dupe > 1 {
+			fmt.Println(item, "is duplicated", dupe, "times.")
 		}
 
 	}
 
 	// -- -------------------------------
-	// Make a slice of unique values
-	var dupes []string
-	var nonDupes []string
+	// Make a list of unique values
+	var result []string
 
-	for item, occurance := range m {
-
-		if occurance > 1 {
-			dupes = append(dupes, item)
-		} else {
-			nonDupes = append(nonDupes, item)
-		}
+	for item, _ := range m {
+		result = append(result, item)
 	}
 
-	fmt.Println(nonDupes)
-	fmt.Println(dupes)
-
-	if *n {
-		return nonDupes
-	}
-
-	return dupes
+	return result
 
 }
 
 func main() {
 
 	// Get the user's list
-	var testSlice []string = flag.Args()
-	fmt.Println(testSlice)
+	var testSlice []string = os.Args[1:]
 
 	//Remove duplicates
 	var resultSlice []string = removeDupes(testSlice)
