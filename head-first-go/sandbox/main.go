@@ -46,9 +46,6 @@ func removeDupes(s []string) []string {
 		}
 	}
 
-	fmt.Println(nonDupes)
-	fmt.Println(dupes)
-
 	if *n {
 		return nonDupes
 	}
@@ -59,9 +56,10 @@ func removeDupes(s []string) []string {
 
 func main() {
 
+	flag.Parse()
+
 	// Get the user's list
 	var testSlice []string = flag.Args()
-	fmt.Println(testSlice)
 
 	//Remove duplicates
 	var resultSlice []string = removeDupes(testSlice)
