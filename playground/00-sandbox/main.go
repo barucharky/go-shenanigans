@@ -6,6 +6,7 @@ import (
 )
 
 var n *bool = flag.Bool("n", false, "display non-duplicates")
+var was *string = flag.String("w", "was entered", "put indicator of multiples")
 
 func removeDupes(s []string) []string {
 	// -- -------------------------------
@@ -23,24 +24,35 @@ func removeDupes(s []string) []string {
 	}
 
 	// -- -------------------------------
-	// Make a slice of unique values
-	var result []string
+	// List duplicates
+	for item, occurance := range m {
 
-	if *n {
-		for item, occurrence := range m {
-			if occurrence == 1 {
-				result = append(result, item)
-			}
+		if occurance > 1 {
+			fmt.Println(item, *was, occurance, "times.")
 		}
-	} else {
-		for item, occurrence := range m {
-			if occurrence > 1 {
-				result = append(result, item)
-			}
+
+	}
+
+	// -- -------------------------------
+	// Make a slice of unique values
+	var dupes []string
+	var nonDupes []string
+
+	for item, occurance := range m {
+
+		if occurance > 1 {
+			dupes = append(dupes, item)
+		} else {
+			nonDupes = append(nonDupes, item)
 		}
 	}
 
-	return result
+	if *n {
+		return nonDupes
+	}
+
+	return dupes
+
 }
 
 func main() {

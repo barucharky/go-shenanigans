@@ -1,11 +1,16 @@
+// B"H
+
 package main
 
-import (
-	"flag"
-	"fmt"
-)
+/*
+go mod init sandbox/csv-output
+go run csv-output.go
+*/
 
-var n = flag.Bool("n", false, "display non-duplicates")
+import (
+	"fmt"
+	"os"
+)
 
 func removeDupes(s []string) []string {
 	// -- -------------------------------
@@ -24,46 +29,37 @@ func removeDupes(s []string) []string {
 
 	// -- -------------------------------
 	// List duplicates
-	for item, occurance := range m {
 
-		if occurance > 1 {
-			fmt.Println(item, "is duplicated", occurance, "times.")
-		}
+	// for item, dupe := range m {
 
-	}
+	// 	if dupe > 1 {
+	// 		fmt.Println(item, "was entered", dupe, "times.")
+	// 	}
+
+	// }
 
 	// -- -------------------------------
-	// Make a slice of unique values
-	var dupes []string
-	var nonDupes []string
+	// Make a list of unique values
+	var result []string
 
-	for item, occurance := range m {
-
-		if occurance > 1 {
-			dupes = append(dupes, item)
-		} else {
-			nonDupes = append(nonDupes, item)
-		}
+	for item, _ := range m {
+		result = append(result, item)
 	}
 
-	if *n {
-		return nonDupes
-	}
-
-	return dupes
+	return result
 
 }
 
 func main() {
 
-	flag.Parse()
-
 	// Get the user's list
-	var testSlice []string = flag.Args()
+	var testSlice []string = os.Args[1:]
 
 	//Remove duplicates
 	var resultSlice []string = removeDupes(testSlice)
 
 	//Print results
-	fmt.Println(resultSlice)
+	for _, item := range resultSlice {
+		fmt.Printf("%s,", item)
+	}
 }
