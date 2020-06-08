@@ -1,3 +1,8 @@
+/*
+go mod init sandbox/os-sandbox
+go run main.go
+*/
+
 package main
 
 import (
@@ -50,12 +55,15 @@ func main() {
 	fmt.Println("-----")
 	fmt.Println("Creating directory in", startDir, "...")
 
-	err = os.Chdir(startDir)
-	if err != nil {
-		log.Fatal(err)
-	}
+	/*
+		err = os.Chdir(startDir)
+		if err != nil {
+			log.Fatal(err)
+		}
+	*/
 
-	err = os.Mkdir(newDirName, 0777)
+	// If you did Chdir, delete the startDir variable in the following line
+	err = os.Mkdir(startDir+newDirName, 0777)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -77,7 +85,7 @@ func main() {
 	}
 
 	fmt.Println("Created", fileName)
-	fmt.Println("newFile is", newFile)
+	fmt.Println("newFile is", newFile.Name())
 	// -- ---------------------------
 
 	fmt.Println("-----")

@@ -26,7 +26,9 @@ func main() {
 		fmt.Printf("%q", v)
 	}
 
-	for i, r := range "Hello, בה ᒂ 🌼" {
+	fmt.Println()
+
+	for i, r := range "Hello, בה ᒂ 🌼." {
 		fmt.Printf("%d\t%q\t%d\n", i, r, r)
 	}
 
