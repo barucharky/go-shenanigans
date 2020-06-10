@@ -7,29 +7,40 @@ go run garbage.go
 
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"log"
+	"os"
+	"strconv"
+)
+
+func mult(numberList []int) int {
+	var answer int = 1
+	for _, number := range numberList {
+		answer = answer * number
+	}
+	return answer
+}
 
 func main() {
-	s := "hello, world"
-	hello := s[:5]
-	world := s[7:]
+	var numbers []int
+	var strings []string
 
-	fmt.Println(s)
-	fmt.Println(hello)
-	fmt.Println(world)
+	// Let's put the arguments from the command line into a variable
+	strings = os.Args[1:]
+	// I called it strings because they are strings at this point.
 
-	for i := 0; i < len(s); i++ {
-		fmt.Println(s[i])
+	// First we have to convert them all into integers
+
+	for _, argument := range strings {
+		number, err := strconv.Atoi(argument)
+
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		numbers = append(numbers, number)
 	}
 
-	for _, v := range s {
-		fmt.Printf("%q", v)
-	}
-
-	fmt.Println()
-
-	for i, r := range "Hello, בה ᒂ 🌼." {
-		fmt.Printf("%d\t%q\t%d\n", i, r, r)
-	}
-
+	fmt.Println(mult(numbers))
 }
