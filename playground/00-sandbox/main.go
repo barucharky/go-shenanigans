@@ -102,7 +102,7 @@ func fetchFiles(directory string) []os.FileInfo {
 
 func dirTest(filename string) bool {
 
-	fileStat, err := os.Stat(filename)
+	fileStat, err := os.Lstat(filename)
 	if err != nil {
 		fmt.Println("Here's your problem")
 		log.Fatal(err)
@@ -110,10 +110,6 @@ func dirTest(filename string) bool {
 
 	fileMode := fileStat.Mode()
 
-	if fileMode.IsDir() {
-		return true
-	}
-
-	return false
+	return fileMode.IsDir()
 
 }
