@@ -8,6 +8,7 @@ go run main.go
 package main
 
 import (
+	"errors"
 	"flag"
 	"fmt"
 	"io/ioutil"
@@ -16,30 +17,29 @@ import (
 	"strings"
 )
 
-var search *string = flag.String("s", "", "If you want to search for a file or dir, enter the name")
-var dir *string = flag.String("d", "", "Specify directory to search")
-var list *bool = flag.Bool("l", false, "List contents before search")
+var results []string
 
-func fileSearch(f []os.FileInfo) {
+var nonRecurs *bool = flag.Bool("n", false, "Non-recursive search")
+var fileOnly *bool = flag.Bool("f", false, "Match files only")
+var dirOnly *bool = flag.Bool("d", false, "Match directories only")
+var dir *string = flag.String("D", "", "Specify search directory")
 
-	var foundMatch bool
+var errParam error = errors.New("you didn't tell me what to search for")
 
-	for _, file := range f {
-		if strings.ToLower(*search) == strings.ToLower(file.Name()) {
-			foundMatch = true
-		}
-	}
+func main() {
+	flag.Parse()
 
-	if foundMatch {
-		fmt.Println("Well, I'll be... Found Match!")
+	// Make sure there is a search string
+	var search string
+
+	if flag.Args() == nil {
+		log.Fatal(errParam)
 	} else {
-		fmt.Println("Sorry, mate. No match found.")
+		search = strings.Join(flag.Args(), " ")
 	}
-}
 
-func getFiles() ([]os.FileInfo, string, error) {
-
-	// Declare relevant variables
+	// -- ---------------------------------
+	// Establish the working directory
 	var directory string
 	var err error
 
@@ -52,42 +52,68 @@ func getFiles() ([]os.FileInfo, string, error) {
 		directory = *dir
 	}
 
-	// Read all the file names in the directory
-	files, err := ioutil.ReadDir(directory)
-	if err != nil {
-		return nil, "", err
-	}
+	// -- ---------------------------------
+	// Run the search
 
-	return files, directory, nil
+	runSearch(directory, search)
+
+	// Print results
+	fmt.Println(results)
+
 }
 
-func main() {
+func runSearch(directory, search string) {
 
-	flag.Parse()
+	// Get the list of files in the search directory
+	files := fetchFiles(directory)
+	var dirBool bool
 
-	// Get a list of the specified directory's contents
+	for _, file := range files {
+		dirBool = dirTest(directory + file.Name())
+		if strings.ToLower(search) == strings.ToLower(file.Name()) {
+			if *fileOnly && !dirBool {
+				results = append(results, directory+file.Name())
+			} else if *dirOnly && dirBool {
+				results = append(results, directory+file.Name())
+			} else if !*fileOnly && !*dirOnly {
+				results = append(results, directory+file.Name())
+			}
+		}
 
-	files, directory, err := getFiles()
+		if dirBool && !*nonRecurs {
+			runSearch(directory+file.Name(), search)
+		}
+
+	}
+
+}
+
+func fetchFiles(directory string) []os.FileInfo {
+	var files []os.FileInfo
+	var err error
+
+	files, err = ioutil.ReadDir(directory)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	// Print directory contents if specified
+	return files
+}
 
-	if *list {
-		fmt.Printf("Directory %s contains:\n", directory)
-		for _, f := range files {
-			fmt.Println(f.Name())
-		}
+func dirTest(filename string) bool {
 
-		fmt.Println("-----")
+	fileStat, err := os.Stat(filename)
+	if err != nil {
+		fmt.Println("Here's your problem")
+		log.Fatal(err)
 	}
 
-	// Run search if requested
-	if *search != "" {
-		fmt.Println("Running search...")
-		fileSearch(files)
-	} else {
-		fmt.Println("Search parameter needed.")
+	fileMode := fileStat.Mode()
+
+	if fileMode.IsDir() {
+		return true
 	}
+
+	return false
+
 }
