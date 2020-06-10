@@ -1,7 +1,7 @@
 // B''H
 
 /*
-go mod init sandbox/sandbox
+go mod init sandbox/00-sandbox
 go run main.go
 */
 
@@ -94,6 +94,7 @@ func fetchFiles(directory string) []os.FileInfo {
 
 	files, err = ioutil.ReadDir(directory)
 	if err != nil {
+		fmt.Println("fetchFiles error")
 		log.Fatal(err)
 	}
 
@@ -104,7 +105,7 @@ func dirTest(filename string) bool {
 
 	fileStat, err := os.Lstat(filename)
 	if err != nil {
-		fmt.Println("Here's your problem")
+		fmt.Println("dirTest error")
 		log.Fatal(err)
 	}
 
