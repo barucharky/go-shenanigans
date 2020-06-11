@@ -32,7 +32,7 @@ func main() {
 	// Make sure there is a search string
 	var search string
 
-	if flag.Args() == nil {
+	if len(flag.Args()) == 0 {
 		log.Fatal(errParam)
 	} else {
 		search = strings.Join(flag.Args(), " ")
@@ -58,7 +58,14 @@ func main() {
 	runSearch(directory, search)
 
 	// Print results
-	fmt.Println(results)
+	if len(results) == 0 {
+		fmt.Println("No matches")
+	} else {
+		fmt.Println("Search results:")
+		for _, result := range results {
+			fmt.Println(result)
+		}
+	}
 
 }
 
@@ -69,19 +76,22 @@ func runSearch(directory, search string) {
 	var dirBool bool
 
 	for _, file := range files {
-		dirBool = dirTest(directory + file.Name())
+
+		var fullPath string = directory + "/" + file.Name()
+
+		dirBool = dirTest(fullPath)
 		if strings.ToLower(search) == strings.ToLower(file.Name()) {
 			if *fileOnly && !dirBool {
-				results = append(results, directory+file.Name())
+				results = append(results, fullPath)
 			} else if *dirOnly && dirBool {
-				results = append(results, directory+file.Name())
+				results = append(results, fullPath)
 			} else if !*fileOnly && !*dirOnly {
-				results = append(results, directory+file.Name())
+				results = append(results, fullPath)
 			}
 		}
 
 		if dirBool && !*nonRecurs {
-			runSearch(directory+file.Name(), search)
+			runSearch(fullPath, search)
 		}
 
 	}
@@ -94,7 +104,6 @@ func fetchFiles(directory string) []os.FileInfo {
 
 	files, err = ioutil.ReadDir(directory)
 	if err != nil {
-		fmt.Println("fetchFiles error")
 		log.Fatal(err)
 	}
 
@@ -105,7 +114,6 @@ func dirTest(filename string) bool {
 
 	fileStat, err := os.Lstat(filename)
 	if err != nil {
-		fmt.Println("dirTest error")
 		log.Fatal(err)
 	}
 
