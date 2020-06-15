@@ -1,23 +1,17 @@
 // B''H
 
-/*
-go mod init sandbox/00-sandbox
-go run main.go
-*/
-
 package main
 
 import (
-	"errors"
 	"fmt"
 	"io/ioutil"
 	"log"
 	"os"
 	"os/exec"
+	"path/filepath"
 	"strings"
 )
 
-var errArgs error = errors.New("too many arguments")
 var gitDirs []string
 
 func main() {
@@ -39,8 +33,16 @@ func main() {
 
 	// Search for all the directories that have a .git folder in them
 	for _, startDir := range startDirs {
+		startDir, err = filepath.Abs(startDir)
+		if err != nil {
+			log.Fatal(err)
+		}
+
 		search(startDir)
 	}
+
+	// Say how many repos found
+	fmt.Printf("%d repositories found\n", len(gitDirs))
 
 	// Go into each directory and run git status
 	for _, gitDir := range gitDirs {
@@ -108,7 +110,9 @@ func doGitStatus(directory string) {
 		log.Fatal(err)
 	}
 
+	fmt.Println("~==========~")
 	fmt.Println(directory)
+	fmt.Println("~==========~")
 
 	cmd = exec.Command("git", "status")
 

@@ -1,10 +1,5 @@
 // B''H
 
-/*
-go mod init sandbox/00-sandbox
-go run main.go
-*/
-
 package main
 
 import (
@@ -13,6 +8,7 @@ import (
 	"log"
 	"os"
 	"os/exec"
+	"path/filepath"
 	"strings"
 )
 
@@ -37,6 +33,11 @@ func main() {
 
 	// Search for all the directories that have a .git folder in them
 	for _, startDir := range startDirs {
+		startDir, err = filepath.Abs(startDir)
+		if err != nil {
+			log.Fatal(err)
+		}
+
 		search(startDir)
 	}
 
