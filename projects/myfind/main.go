@@ -14,6 +14,7 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"path/filepath"
 	"strings"
 )
 
@@ -49,7 +50,10 @@ func main() {
 			log.Fatal(err)
 		}
 	} else {
-		directory = *dir
+		directory, err = filepath.Abs(*dir)
+		if err != nil {
+			log.Fatal(err)
+		}
 	}
 
 	// -- ---------------------------------
