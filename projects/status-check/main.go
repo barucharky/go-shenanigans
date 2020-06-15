@@ -42,6 +42,9 @@ func main() {
 		search(startDir)
 	}
 
+	// Say how many repos found
+	fmt.Printf("%d repositories found\n", len(gitDirs))
+
 	// Go into each directory and run git status
 	for _, gitDir := range gitDirs {
 		doGitStatus(gitDir)
@@ -108,7 +111,9 @@ func doGitStatus(directory string) {
 		log.Fatal(err)
 	}
 
+	fmt.Println("~==========~")
 	fmt.Println(directory)
+	fmt.Println("~==========~")
 
 	cmd = exec.Command("git", "status")
 

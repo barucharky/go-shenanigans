@@ -80,6 +80,7 @@ func runSearch(directory, search string) {
 		var fullPath string = directory + "/" + file.Name()
 
 		dirBool = dirTest(fullPath)
+
 		if strings.ToLower(search) == strings.ToLower(file.Name()) {
 			if *fileOnly && !dirBool {
 				results = append(results, fullPath)
