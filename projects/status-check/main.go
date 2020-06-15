@@ -8,7 +8,6 @@ go run main.go
 package main
 
 import (
-	"errors"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -17,7 +16,6 @@ import (
 	"strings"
 )
 
-var errArgs error = errors.New("too many arguments")
 var gitDirs []string
 
 func main() {
