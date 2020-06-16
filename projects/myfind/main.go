@@ -15,6 +15,7 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"regexp"
 	"strings"
 )
 
@@ -75,17 +76,26 @@ func main() {
 
 func runSearch(directory, search string) {
 
-	// Get the list of files in the search directory
+	// Get the list of files in the search directory, make search lower case, declare dirBool
 	files := fetchFiles(directory)
+	search = strings.ToLower(search)
 	var dirBool bool
 
 	for _, file := range files {
 
+		// declare fullPath, define filename
 		var fullPath string = directory + "/" + file.Name()
-
+		var filename string = strings.ToLower(file.Name())
 		dirBool = dirTest(fullPath)
 
-		if strings.ToLower(search) == strings.ToLower(file.Name()) {
+		// Check match
+		match, err := regexp.MatchString(search, filename)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		// If it's a match, check if the file only or directory only flags were selected and append the results
+		if match {
 			if *fileOnly && !dirBool {
 				results = append(results, fullPath)
 			} else if *dirOnly && dirBool {
@@ -95,6 +105,7 @@ func runSearch(directory, search string) {
 			}
 		}
 
+		// If the file is a directory, search within it as well
 		if dirBool && !*nonRecurs {
 			runSearch(fullPath, search)
 		}

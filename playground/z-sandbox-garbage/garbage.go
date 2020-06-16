@@ -1,53 +1,32 @@
 // B''H
 
+/*
+go mod init sandbox/garbage
+go run garbage.go
+*/
+
 package main
 
 import (
 	"fmt"
-	"io/ioutil"
-	"log"
-	"os"
-	"regexp"
-	"strings"
 )
+
+type employee struct {
+	firstName string
+	lastName  string
+	id        int
+	smoker    bool
+}
 
 func main() {
 
-	// get search
-	var search string = os.Args[1]
-	directory, err := os.Getwd()
-	if err != nil {
-		log.Fatal(err)
-	}
+	// Assign variable
+	empFour := employee{"Monty", "Burns", 234, true}
 
-	// Get the list of files in the search directory
-	files := fetchFiles(directory)
-	search = strings.ToLower(search)
+	var empFourPtr *employee = &empFour
 
-	for _, file := range files {
+	fmt.Println(empFour)
+	fmt.Println(empFourPtr.firstName)
+	fmt.Println(empFourPtr)
 
-		var filename string = strings.ToLower(file.Name())
-
-		match, err := regexp.MatchString(search, filename)
-		if err != nil {
-			log.Fatal(err)
-		}
-
-		if match {
-			fmt.Println("Match:\n", filename)
-		}
-	}
-
-}
-
-func fetchFiles(directory string) []os.FileInfo {
-	var files []os.FileInfo
-	var err error
-
-	files, err = ioutil.ReadDir(directory)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	return files
 }
