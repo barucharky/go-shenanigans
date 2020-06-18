@@ -1,11 +1,11 @@
 // B"H
 
-package main
-
 /*
 go mod init sandbox/csv-output
 go run csv-output.go
 */
+
+package main
 
 import (
 	"fmt"
