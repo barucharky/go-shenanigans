@@ -8,52 +8,50 @@ package main
 
 import (
 	"fmt"
-	"math/rand"
-	"os"
-	"strings"
-	"time"
 )
 
-var answers []string = []string{
-	"Very likely",
-	"Probably not",
-	"I don't see that happening for you",
-	"I give it like 50% probability",
-	"Unclear. Ask again later",
-	"You'll die before that happens",
-	"outlook good",
-	"I'm tryna think"}
+/*
+Just a little review of how functions work. You'll recognize a function because it's a command with parenthesis after it
+*/
 
-var badQ map[string]string = map[string]string{
-	"what is my name":   "It doesn't matter what your name is",
-	"what is your name": "Let's keep this about you",
-	"how old am i":      "I think you know that already",
-	"am i beautiful":    "You want an honest answer to that?"}
+// A function can receive values and return values
+func receiveReturn(valueReceived string) string {
 
-func main() {
+	// The variable valueReceived is a copy of the value passed in
 
-	var question string = strings.ToLower(strings.Join(os.Args[1:], " "))
-	var isBad bool
+	fmt.Println("This is the value I received:")
+	fmt.Println(valueReceived)
 
-	for qMatch, _ := range badQ {
-		if question == qMatch {
-			isBad = true
-		}
-	}
-
-	if isBad {
-		fmt.Println(badQ[question])
-	} else {
-		randResponse()
-	}
+	return "Value Returned"
 
 }
 
-func randResponse() {
+// A function doesn't have to receive or return. It can also do one or the other
+func noReceiveNoReturn() {
+	fmt.Println("I received nothing and returned nothing")
+}
 
-	var seconds int64 = time.Now().Unix()
-	rand.Seed(seconds)
-	var answer int = rand.Intn(len(answers))
+func main() {
+	var valuePassedIn string = "Here I am"
+	var valueReturned string
 
-	fmt.Println(answers[answer])
+	fmt.Println("Here are the values before they are passed in and received:")
+	fmt.Println("The value of the variable to be passed in:", valuePassedIn)
+	fmt.Println("The value of the variable that will be returned:", valueReturned)
+
+	// -- ----------------------------------------------------------
+	fmt.Println("---------")
+
+	// The function that received a passed-in value works like this
+	valueReturned = receiveReturn(valuePassedIn)
+
+	fmt.Println("\nHere is the value the function returned:")
+	fmt.Println(valueReturned)
+
+	// -- -----------------------------------------------------------
+	fmt.Println("---------")
+
+	// The function that neither receives nor returns works like this
+	noReceiveNoReturn()
+
 }
