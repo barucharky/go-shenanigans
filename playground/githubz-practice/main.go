@@ -1,7 +1,7 @@
 // B''H
 
 /*
-go mod init sandbox/githubz
+go mod init sandbox/githubz-practice
 go run main.go
 */
 
@@ -16,7 +16,7 @@ import (
 	"text/template"
 	"time"
 
-	"sandbox/githubz/github"
+	"sandbox/githubz-practice/github"
 )
 
 //!+template

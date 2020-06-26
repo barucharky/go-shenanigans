@@ -7,39 +7,35 @@ go run main.go
 
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
+
+func helper(s string, err error) string {
+
+	if err != nil {
+		panic(err)
+	}
+
+	return s
+}
+
+func errFunc(b bool) (string, error) {
+
+	if b == false {
+		return "", fmt.Errorf("this is the error")
+	}
+
+	return "this is the string", nil
+}
 
 func main() {
-	var numbers []int = []int{5, 4, 2, 3, 1, 0}
-	fmt.Println("Unsorted:", numbers)
 
-	bubbleSort(numbers)
-	fmt.Println("Sorted:", numbers)
-}
+	var message string
 
-func bubbleSort(numbers []int) {
-	var N int = len(numbers)
-	var i int
-	for i = 0; i < N; i++ {
-		sweep(numbers)
-	}
-}
+	message = helper(errFunc(true))
+	fmt.Println(message)
 
-func sweep(numbers []int) {
-	var N int = len(numbers)
-	var firstIndex int = 0
-	var secondIndex int = 1
-
-	for secondIndex < N {
-		var firstNumber int = numbers[firstIndex]
-		var secondNumber int = numbers[secondIndex]
-
-		if firstNumber > secondNumber {
-			numbers[firstIndex] = secondNumber
-			numbers[secondIndex] = firstNumber
-		}
-
-		firstIndex++
-		secondIndex++
-	}
+	message = helper(errFunc(false))
+	fmt.Println(message)
 }
