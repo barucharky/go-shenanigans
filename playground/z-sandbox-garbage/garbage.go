@@ -11,31 +11,21 @@ import (
 	"fmt"
 )
 
-func helper(s string, err error) string {
-
-	if err != nil {
-		panic(err)
-	}
-
-	return s
+type myStruc struct {
+	number int
+	name   string
+	isMe   bool
 }
 
-func errFunc(b bool) (string, error) {
+func retPointer() *myStruc {
+	var theStruct myStruc = myStruc{number: 1, name: "Baruch", isMe: true}
 
-	if b == false {
-		return "", fmt.Errorf("this is the error")
-	}
-
-	return "this is the string", nil
+	return &theStruct
 }
 
 func main() {
 
-	var message string
+	newStruct := retPointer()
 
-	message = helper(errFunc(true))
-	fmt.Println(message)
-
-	message = helper(errFunc(false))
-	fmt.Println(message)
+	fmt.Println(newStruct)
 }

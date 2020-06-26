@@ -38,11 +38,13 @@ func daysAgo(t time.Time) int {
 //!-daysAgo
 
 //!+exec
-var report = template.Must(template.New("issuelist").
+var report = template.Must(template.New("issueslist").
 	Funcs(template.FuncMap{"daysAgo": daysAgo}).
 	Parse(templ))
 
 func main() {
+
+	var result *github.IssuesSearchResult
 
 	result, err := github.SearchIssues(os.Args[1:])
 
