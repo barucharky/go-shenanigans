@@ -22,7 +22,7 @@ import (
 //!+template
 const templ = `{{.TotalCount}} issues:
 {{range .Items}}----------------------------------------
-Number: {{.Number}}
+Numberdlkfj: {{.Number}}
 User:   {{.User.Login}}
 Title:  {{.Title | printf "%.64s"}}
 Age:    {{.CreatedAt | daysAgo}} days
@@ -43,8 +43,6 @@ var report = template.Must(template.New("issueslist").
 	Parse(templ))
 
 func main() {
-
-	var result *github.IssuesSearchResult
 
 	result, err := github.SearchIssues(os.Args[1:])
 
