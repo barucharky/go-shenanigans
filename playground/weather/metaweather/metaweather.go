@@ -4,10 +4,6 @@
 // See https://developer.github.com/v3/search/#search-issues.
 package metaweather
 
-import (
-	"time"
-)
-
 const LocationURL = "https://www.metaweather.com/api/location/"
 
 type LocationSearchResult struct {
@@ -22,11 +18,11 @@ type WeatherResult struct {
 }
 
 type FiveDay struct {
-	Condition     string    `json:"weather_state_name"`
-	WindDirection string    `json:"wind_direction_compass"`
-	Date          time.Time `json:"applicable_date"`
-	MinTemp       float64   `json:"min_temp"`
-	MaxTemp       float64   `json:"max_temp"`
+	Condition     string  `json:"weather_state_name"`
+	WindDirection string  `json:"wind_direction_compass"`
+	Date          string  `json:"applicable_date"`
+	MinTemp       float64 `json:"min_temp"`
+	MaxTemp       float64 `json:"max_temp"`
 	Humidity      int
 }
 

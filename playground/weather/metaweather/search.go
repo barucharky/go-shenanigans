@@ -41,7 +41,7 @@ func SearchLocation(terms []string) (*[]LocationSearchResult, error) {
 	return &result, nil
 }
 
-func GetForecast(woeid int) (*[]WeatherResult, error) {
+func GetForecast(woeid int) (*WeatherResult, error) {
 
 	// -- -------------------------------------------
 	q := url.QueryEscape(strconv.Itoa(woeid))
@@ -60,7 +60,8 @@ func GetForecast(woeid int) (*[]WeatherResult, error) {
 	}
 
 	// -- -------------------------------------------
-	var result []WeatherResult
+
+	var result WeatherResult
 
 	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
 		fmt.Println("here's the problem")
