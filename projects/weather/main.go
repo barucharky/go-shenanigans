@@ -37,17 +37,15 @@ func main() {
 		log.Fatal(err)
 	}
 
-	// Print city options
-	var resultLen int = len(*locResult)
+	// -- -------------------------------------------
+	// Get selection
+	selNum, err := getSel(locResult)
 
-	for cityNum, city := range *locResult {
-		fmt.Printf("%3d   %s\n", cityNum, city.Title)
+	if err != nil {
+		log.Fatal(err)
 	}
 
-	// Get selection
-	fmt.Println("Select a city:")
-	selNum, err := getSel(resultLen)
-
+	// -- -------------------------------------------
 	// Get the city name from the result struct
 	var cityWoeid int
 
@@ -58,8 +56,8 @@ func main() {
 		}
 	}
 
+	// -- -------------------------------------------
 	// Get forecast using cityWoeid
-
 	forcastResult, err := metaweather.GetForecast(cityWoeid)
 
 	if err != nil {
@@ -72,11 +70,30 @@ func main() {
 
 }
 
-func getSel(cityNum int) (int, error) {
+func getSel(locResult *[]metaweather.LocationSearchResult) (int, error) {
+
+	// Get the number of options
+	var resultLen int = len(*locResult)
+
+	// If there are no options, return an error. If one, return that option
+	if resultLen == 0 {
+		return 0, fmt.Errorf("No city options available")
+	} else if resultLen == 1 {
+		return 0, nil
+	}
+
+	// Show the user the list of options
+	for cityNum, city := range *locResult {
+		fmt.Printf("%3d   %s\n", cityNum, city.Title)
+	}
+
+	// Start the selection process
+	fmt.Println("Select a city:")
 
 	var reader *bufio.Reader = bufio.NewReader(os.Stdin)
 	var selNum int
 
+	// User must enter a viable option at this point
 	for true {
 
 		input, err := reader.ReadString('\n')
@@ -94,7 +111,7 @@ func getSel(cityNum int) (int, error) {
 			continue
 		}
 
-		if selNum > cityNum {
+		if selNum > resultLen {
 			fmt.Println("Please select from the list")
 			continue
 		} else {
@@ -102,6 +119,6 @@ func getSel(cityNum int) (int, error) {
 		}
 	}
 
+	// Return the selection
 	return selNum, nil
-
 }
