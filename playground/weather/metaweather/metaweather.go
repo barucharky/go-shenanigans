@@ -7,6 +7,10 @@ package metaweather
 const LocationURL = "https://www.metaweather.com/api/location/"
 
 type LocationSearchResult struct {
+	Cities []*City
+}
+
+type City struct {
 	Title        string
 	LocationType string `json:"location_type"`
 	Woeid        int

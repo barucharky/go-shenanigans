@@ -64,7 +64,6 @@ func GetForecast(woeid int) (*WeatherResult, error) {
 	var result WeatherResult
 
 	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
-		fmt.Println("here's the problem")
 		return nil, err
 	}
 
