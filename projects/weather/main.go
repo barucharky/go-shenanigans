@@ -19,9 +19,9 @@ const templ = `5-Day Forecast for {{.Title}}:
 {{range .Items}}----------------------------------------
 Date:     {{.Date}}
 Condition {{.Condition}}
-Low:      {{.MinTemp}}
-High:     {{.MaxTemp}}
-Humidity: {{.Humidity}}
+Low:      {{.MinTemp | printf "%.2f"}} C
+High:     {{.MaxTemp | printf "%.2f"}} C
+Humidity: {{.Humidity}}%
 {{end}}`
 
 // !-Template
