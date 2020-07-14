@@ -11,21 +11,21 @@ import (
 	"fmt"
 )
 
-type myStruc struct {
-	number int
-	name   string
-	isMe   bool
-}
-
-func retPointer() *myStruc {
-	var theStruct myStruc = myStruc{number: 1, name: "Baruch", isMe: true}
-
-	return &theStruct
-}
-
 func main() {
 
-	newStruct := retPointer()
+	fmt.Println("testing return to break loop")
 
-	fmt.Println(newStruct)
+	myStr := myLoop()
+	fmt.Println(myStr)
+}
+
+func myLoop() string {
+
+	for i := 0; i < 10; i++ {
+		if i == 11 {
+			return "thing"
+		}
+	}
+
+	return "unbroken"
 }
