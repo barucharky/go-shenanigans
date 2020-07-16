@@ -9,23 +9,9 @@ package main
 
 import (
 	"fmt"
+	"runtime"
 )
 
 func main() {
-
-	fmt.Println("testing return to break loop")
-
-	myStr := myLoop()
-	fmt.Println(myStr)
-}
-
-func myLoop() string {
-
-	for i := 0; i < 10; i++ {
-		if i == 11 {
-			return "thing"
-		}
-	}
-
-	return "unbroken"
+	fmt.Println(runtime.GOOS)
 }

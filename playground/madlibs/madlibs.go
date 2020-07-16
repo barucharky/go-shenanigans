@@ -32,8 +32,12 @@ func main() {
 		fmt.Println("Type your sentence:")
 		var sentence string = getString()
 
-		fmt.Println("Choose class:")
-		var class string = getClass()
+		if sentence == "" {
+			break
+		}
+
+		fmt.Println("Enter class of word:")
+		var class string = getString()
 
 		if class == "" {
 			break
